@@ -4,6 +4,7 @@ from network import Network
 from neuron import Neuron
 
 def main():
+    #setup the depth of the NN and number of nodes here
     topology = []
     topology.append(2)
     topology.append(3)
@@ -12,9 +13,10 @@ def main():
     Neuron.eta = 0.09
     Neuron.alpha = 0.015
     while True:
-
+	
         err = 0
-        inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]
+	#setup the training data here
+        inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]		
         outputs = [[0, 0], [1, 0], [1, 0], [0, 1]]
         for i in range(len(inputs)):
             net.setInput(inputs[i])
@@ -22,7 +24,8 @@ def main():
             net.backPropagate(outputs[i])
             err = err + net.getError(outputs[i])
         print "error: ", err
-        if err < 0.09:
+	#setting error limit here
+        if err < 0.09:			
             break
 
     while True:

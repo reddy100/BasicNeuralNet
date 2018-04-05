@@ -19,7 +19,7 @@ class Neuron:
                 self.dendrons.append(con)
 
     def addError(self, err):
-        self.error = self.error + err
+        self.error = self.getError() + err
 
     def sigmoid(self, x):
         return 1 / (1 + math.exp(-x * 1.0))
@@ -58,7 +58,7 @@ class Neuron:
         self.output = self.sigmoid(sumOutput)
 
     def _findGradient(self):
-	return self.error * self.dSigmoid(self.output)
+	return self.getError() * self.dSigmoid(self.output)
 
     def _updateddWeight(self, dendron):
 	return Neuron.eta * (dendron.connectedNeuron.getOutput() * self.gradient) + self.alpha * dendron.getdWeight();
@@ -74,6 +74,6 @@ class Neuron:
         for dendron in self.dendrons:
             dendron.dWeight = self._updateddWeight(dendron)
             dendron.setWeight(self._updatedWeight(dendron));
-            dendron.connectedNeuron.addError(self._updatedError);
+            dendron.connectedNeuron.addError(self._updatedError(dendron));
         self.error = 0;
 
